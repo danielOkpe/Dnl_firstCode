@@ -12,6 +12,7 @@ private defaultWidth : number = 170;
     this.setHeight(this.defaultHeight);
     this.setWidth(this.defaultWidth);
     console.log(this.el.nativeElement);
+    this.el.nativeElement.style.cursor = 'pointer';
 
     /*if( this.el.nativeElement ===  HTMLElement){
       this.el.nativeElement.style.cursor = 'pointer';
