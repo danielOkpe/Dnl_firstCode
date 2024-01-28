@@ -36,10 +36,10 @@ this.setWidth(this.defaultWidth+10);
   }
 
   setHeight(height : number){
-    this.el.nativeElement.style.height = `${height}`;
+    this.el.nativeElement.style.height = `${height}px`;
   }
   setWidth(width : number){
-    this.el.nativeElement.style.width = `${width}`;
+    this.el.nativeElement.style.width = `${width}px`;
   }
 
   
