@@ -1,0 +1,38 @@
+<form (ngSubmit)="onSubmit()"  [formGroup]="mainFormGroup">
+   
+
+    <div class="inputContainer">
+        <label for="tname">Task name:</label>
+        <input type="text"
+        required
+        class="inText"
+        id="tname"
+          formControlName="tname">
+    </div>
+
+
+    <div class="inputContainer">
+        <label for="tdate">Task date:</label>
+        <input type="date"
+        required
+        class="inText"
+        id="tdate"
+        formControlName="tdate">
+    </div>
+
+
+    <div class="inputContainer">
+        <label for="thour">Task time:</label>
+        <input type="time"
+        required
+        class="inText"
+        id="thour"
+        formControlName="thour">
+    </div>
+
+
+    <button type="submit" id="sub" [disabled]="!mainFormGroup.valid">Valid Task</button>
+
+</form>
+
+<button (click)="goBack()">Return</button>

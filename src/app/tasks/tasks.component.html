@@ -1,0 +1,27 @@
+<p id="list">List of tasks:</p>
+
+<!-- grace à la taille je verifie si il y a une liste de tache, alors j'applique le ngFor -->
+<div *ngIf="leng != 0">
+  <ul *ngFor="let task of user?.tasksList">
+    <li [id]="task.id">
+      <a>{{ task.taskName }}</a>
+      <a>{{ task.taskDate }}</a>
+      <a>{{ task.taskHour }}</a>
+      <a>
+        <input type="checkbox" (change)="ValidTask($event, task, task.id)"
+      /></a>
+      <!-- bouton pour supprimer une tache-->
+      <button (click)="delTask(user.tasksList.indexOf(task))">
+        Delete Task
+      </button>
+    </li>
+  </ul>
+</div>
+
+<!-- bouton pour aller sur la page d'édition d'une tache -->
+<div>
+  <button (click)="goToCalendar()">+ Add Task</button>
+</div>
+
+<br /> <!--saut de ligne-->
+<button (click)="goBack()">Return</button> <!--bouton retour-->

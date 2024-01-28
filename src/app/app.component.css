@@ -1,0 +1,14 @@
+nav{
+    padding: 0.25rem 0;
+    justify-content: flex-start;
+    background-color: aqua;
+    cursor: pointer;
+}
+nav a{
+    color: black;
+text-decoration: none;
+}
+
+nav:hover{
+    color: blue;
+}

@@ -1,0 +1,21 @@
+<div class="container">
+  <input
+    (click)="goToForm()"
+    type="button"
+    name="addperson"
+    value="Add Somebody"
+  />
+
+  <div id="list">
+    <p>list of people who have been added :</p>
+
+    <ul *ngFor="let user of userS">
+      <li>
+        <button (click)="goToTasks(user)">{{ user.firstName }}</button>
+        <button (click)="delUser(userS.indexOf(user) + 1)">Delete</button>
+      </li>
+    </ul>
+
+    <p class="no-user" *ngIf="userS.length == 0">No users at the moment</p>
+  </div>
+</div>

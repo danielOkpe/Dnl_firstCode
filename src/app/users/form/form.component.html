@@ -1,0 +1,78 @@
+<div id="formContainer" class="container">
+  <form id="userForm" (ngSubmit)="onSubmit()" [formGroup]="mainFormGroup" hooverButtonSize>
+    <div class="textContainer" id="firstName">
+      <label name="firstName" for="fname">First Name:</label>
+      <input
+        class="inText"
+        type="text"
+        id="fname"
+        required
+        pattern="^[a-zA-Zàéèç]{1,25}$"
+        formControlName="fname"
+      />
+      <p
+        [hidden]="
+          mainFormGroup.get('fname')?.valid ||
+          mainFormGroup.get('fname')?.pristine
+        "
+      >
+        Your first name is necessary (1-25)
+      </p>
+    </div>
+
+    <div class="textContainer" id="lastName">
+      <label for="lname">Last Name:</label>
+      <input
+        class="inText"
+        type="text"
+        required
+        id="lname"
+        pattern="^[a-zA-Zàéèç]{1,25}$"
+        formControlName="lname"
+      />
+      <p
+        [hidden]="
+          mainFormGroup.get('lname')?.valid ||
+          mainFormGroup.get('lname')?.pristine
+        "
+      >
+        Your last name is necessary (1-25)
+      </p>
+    </div>
+
+    <div class="textContainer" id="mail">
+      <label name="mail" for="mail"> Mail:</label>
+      <input
+        class="inText"
+        type="email"
+        id="mail"
+        required
+        pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$"
+        formControlName="mail"
+      />
+      <p
+        [hidden]="
+          mainFormGroup.get('mail')?.valid ||
+          mainFormGroup.get('mail')?.pristine
+        "
+      >
+        Your mail is necessary
+      </p>
+    </div>
+
+    <button
+      id="sub"
+      class="submit"
+      type="submit"
+      [disabled]="!mainFormGroup.valid"
+      hooverButtonSize
+    >
+      Add User
+      {{ submitColorValid() }}
+    </button>
+  </form>
+
+  <div>
+    <button class="return" (click)="goBack()" hooverButtonSize>Return</button>
+  </div>
+</div>
