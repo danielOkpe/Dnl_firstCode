@@ -4,8 +4,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   selector: '[hooverButtonSize]'
 })
 export class ButtonSizeDirective {
-private defaultHeight : number =this.el.nativeElement.style.height ;
-private defaultWidth : number = this.el.nativeElement.style.width;
+private defaultHeight : number =40 ;
+private defaultWidth : number = 170;
   constructor(private el : ElementRef,
     ) { 
        
