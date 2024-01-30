@@ -2,10 +2,13 @@
 
 <!-- grace à la taille je verifie si il y a une liste de tache, alors j'applique le ngFor -->
 <div *ngIf="leng != 0">
-  <ul *ngFor="let task of user?.tasksList">
+  <ul *ngFor="let task of user?.tasksList" class="task-list">
     <li [id]="task.id">
-      <a class="taskAttribute">{{ task.taskName | uppercase }}</a>
-      <a class="taskAttribute">{{ task.taskDate | date | uppercase}}</a>
+      <label>Do :</label>
+      <a class="taskAttribute" >{{ task.taskName | uppercase }}</a>
+      <label>For :</label>
+      <a class="taskAttribute" >{{ task.taskDate | date | uppercase}}</a>
+      <label>At :</label>
       <a >{{ task.taskHour }}</a>
       <a>
         <input type="checkbox" (change)="ValidTask($event, task, task.id)"
