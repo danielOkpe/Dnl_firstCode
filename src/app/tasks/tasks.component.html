@@ -4,9 +4,9 @@
 <div *ngIf="leng != 0">
   <ul *ngFor="let task of user?.tasksList">
     <li [id]="task.id">
-      <a>{{ task.taskName }}</a>
-      <a>{{ task.taskDate }}</a>
-      <a>{{ task.taskHour }}</a>
+      <a class="taskAttribute">{{ task.taskName | uppercase }}</a>
+      <a class="taskAttribute">{{ task.taskDate | date | uppercase}}</a>
+      <a >{{ task.taskHour }}</a>
       <a>
         <input type="checkbox" (change)="ValidTask($event, task, task.id)"
       /></a>
