@@ -25,6 +25,7 @@ export class AcceuilComponent implements OnInit {
     console.log(this.userService.user);
     this.addUser();
     console.log(users);
+    console.log( new Date());
   }
 
   addUser() {
