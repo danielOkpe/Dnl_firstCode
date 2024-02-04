@@ -3,9 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/user';
 import { users } from 'src/app/user-list';
 import {
-  FormControl,
   FormGroup,
-  FormControlName,
   AbstractControl,
   FormBuilder,
   Validators,
@@ -35,7 +33,7 @@ export class CalendarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private taskService: TaskService,
-    private fb: FormBuilder //private   userService : UserService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -59,9 +57,7 @@ export class CalendarComponent implements OnInit {
     if (this.userA) {
       this.user = this.userA;
     }
-    //this.disabledHour;
     console.log(this.user);
-    console.log(this.mainFormGroup.get('dateHourGroup.thour')?.value);
   }
 
   goBack() {
@@ -83,17 +79,9 @@ export class CalendarComponent implements OnInit {
     console.log(this.user);
     this.user?.tasksList.push(this.task);
     this.router.navigate(['task-manager/tasks', this.user?.firstName]);
-    console.log(
-      new Date(
-        this.mainFormGroup.get('dateHourGroup.tdate')?.value +
-          ' ' +
-          this.mainFormGroup.get('dateHourGroup.thour')?.value
-      ).getHours()
-    );
   }
 
   dateValidator(_c: AbstractControl): { [key: string]: boolean } | null {
-    //const validDate = _c.get('tdate');
     if (
       _c.value != null &&
       (new Date(_c.value).getFullYear() < new Date().getFullYear() || //si l'année chois < l'année actuelle
@@ -112,13 +100,14 @@ export class CalendarComponent implements OnInit {
     if (
       validDate?.valid &&
       new Date(validDate?.value).getDate() == new Date().getDate() && // -------------
-      new Date(validDate?.value).getMonth() == new Date().getMonth() &&// ------------
-      new Date(validDate?.value).getFullYear() == new Date().getFullYear() &&// si la date choisi avant cSorrespond à la date d'aujourd'hui
+      new Date(validDate?.value).getMonth() == new Date().getMonth() && // ------------
+      new Date(validDate?.value).getFullYear() == new Date().getFullYear() && // si la date choisi avant cSorrespond à la date d'aujourd'hui
       (new Date(validDate.value + ' ' + validHour?.value).getHours() < // --------
-        new Date().getHours() || // ------------
-        new Date(validDate.value + ' ' + validHour?.value).getMinutes() <// -------------
-          new Date().getMinutes() // si l'heure choisi est inférieur à l'heure actuelle
-      )
+        new Date().getHours() ||
+        (new Date(validDate.value + ' ' + validHour?.value).getHours() == // --------
+          new Date().getHours() && // ------------
+          new Date(validDate.value + ' ' + validHour?.value).getMinutes() < // -------------
+            new Date().getMinutes())) // si l'heure choisi est inférieur à l'heure actuelle
     ) {
       return { hourError: true };
     } else {
