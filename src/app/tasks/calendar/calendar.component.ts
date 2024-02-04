@@ -8,6 +8,7 @@ import {
   FormControlName,
   AbstractControl,
   FormBuilder,
+  Validators,
 } from '@angular/forms';
 import { Task } from '../task';
 import { TaskService } from 'src/app/task.service';
@@ -39,9 +40,14 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.mainFormGroup = this.fb.group({
-      tname: '',
-      tdate: [null, this.dateValidator],
-      thour: [null, this.dateValidator],
+      tname: ['', Validators.required],
+      dateHourGroup: this.fb.group(
+        {
+          tdate: [null, this.dateValidator],
+          thour: [null],
+        },
+        { validators: [this.hourValidator] }
+      ),
     });
 
     this.taskService.task = new Task();
@@ -53,8 +59,9 @@ export class CalendarComponent implements OnInit {
     if (this.userA) {
       this.user = this.userA;
     }
-
+    //this.disabledHour;
     console.log(this.user);
+    console.log(this.mainFormGroup.get('dateHourGroup.thour')?.value);
   }
 
   goBack() {
@@ -64,23 +71,34 @@ export class CalendarComponent implements OnInit {
   onSubmit() {
     this.task = this.taskService.task;
     this.taskService.setTaskName(this.mainFormGroup.controls['tname'].value);
-    this.taskService.setTaskDate(this.mainFormGroup.controls['tdate'].value);
-    this.taskService.setTaskHour(this.mainFormGroup.controls['thour'].value);
+    this.taskService.setTaskDate(
+      this.mainFormGroup.get('dateHourGroup.tdate')?.value
+    );
+    this.taskService.setTaskHour(
+      this.mainFormGroup.get('dateHourGroup.thour')?.value
+    );
     this.taskService.setTaskUser(this.user);
     this.taskService.setTaskId(this.user.tasksList.length + 1);
     console.log(this.task);
     console.log(this.user);
     this.user?.tasksList.push(this.task);
     this.router.navigate(['task-manager/tasks', this.user?.firstName]);
-    console.log(this.mainFormGroup.controls['thour'].value);
+    console.log(
+      new Date(
+        this.mainFormGroup.get('dateHourGroup.tdate')?.value +
+          ' ' +
+          this.mainFormGroup.get('dateHourGroup.thour')?.value
+      ).getHours()
+    );
   }
 
   dateValidator(_c: AbstractControl): { [key: string]: boolean } | null {
+    //const validDate = _c.get('tdate');
     if (
       _c.value != null &&
-      (new Date(_c.value).getFullYear() < new Date().getFullYear() ||
-        new Date(_c.value).getMonth() < new Date().getMonth() ||
-        new Date(_c.value).getDate() < new Date().getDate())
+      (new Date(_c.value).getFullYear() < new Date().getFullYear() || //si l'année chois < l'année actuelle
+        new Date(_c.value).getMonth() < new Date().getMonth() || //si le mois chois < le mois actuelle
+        new Date(_c.value).getDate() < new Date().getDate()) //si le jour chois < le jour actuelle
     ) {
       return { dateError: true };
     } else {
@@ -88,5 +106,23 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  
+  hourValidator(_c: AbstractControl): { [key: string]: boolean } | null {
+    const validDate = _c.get('tdate');
+    const validHour = _c.get('thour');
+    if (
+      validDate?.valid &&
+      new Date(validDate?.value).getDate() == new Date().getDate() && // -------------
+      new Date(validDate?.value).getMonth() == new Date().getMonth() &&// ------------
+      new Date(validDate?.value).getFullYear() == new Date().getFullYear() &&// si la date choisi avant cSorrespond à la date d'aujourd'hui
+      (new Date(validDate.value + ' ' + validHour?.value).getHours() < // --------
+        new Date().getHours() || // ------------
+        new Date(validDate.value + ' ' + validHour?.value).getMinutes() <// -------------
+          new Date().getMinutes() // si l'heure choisi est inférieur à l'heure actuelle
+      )
+    ) {
+      return { hourError: true };
+    } else {
+      return null;
+    }
+  }
 }

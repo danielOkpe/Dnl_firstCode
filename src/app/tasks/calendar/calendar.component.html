@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="mainFormGroup">
+<form (ngSubmit)="onSubmit()" [formGroup]="mainFormGroup" >
   <div class="inputContainer">
     <label for="tname">Task name:</label>
     <input
@@ -10,39 +10,42 @@
     />
   </div>
 
+  <div formGroupName="dateHourGroup">
+    <div class="inputContainer" >
+      <label for="tdate">Task date:</label>
+      <input
+        type="date"
+        required
+        class="inText"
+        id="tdate"
+        formControlName="tdate"
+      />
+    </div>
+    <div>
+      <span
+        *ngIf="mainFormGroup.get('dateHourGroup.tdate')?.errors?.['dateError']"
+      >
+        not a good date
+      </span>
+    </div>
 
-  <div class="inputContainer">
-    <label for="tdate">Task date:</label>
-    <input
-      type="date"
-      required
-      class="inText"
-      id="tdate"
-      formControlName="tdate"
-      
-    />
-  </div>
-   <div>
-   <span *ngIf="mainFormGroup.controls['tdate']?.errors?.['dateError']">
-      not a good date
+    <div class="inputContainer" >
+      <label for="thour">Task time:</label>
+      <input
+        type="time"
+        required
+        class="inText"
+        id="thour"
+        formControlName="thour"
+      />
+    </div>
+    <span
+      *ngIf="mainFormGroup.get('dateHourGroup')?.errors?.['hourError']"
+    >
+      not a good hour
     </span>
   </div>
-
-  <div class="inputContainer">
-    <label for="thour">Task time:</label>
-    <input
-      type="time"
-      required
-      class="inText"
-      id="thour"
-      formControlName="thour"
-    />
-  </div>
-  <span *ngIf="mainFormGroup.get('thour')?.errors?.['hourError']">
-    not a good hour
-  </span>
-
-  <button type="submit" id="sub" [disabled]="!mainFormGroup.valid">
+  <button type="submit" id="sub" [disabled]="!mainFormGroup.valid ">
     Valid Task
   </button>
 </form>
