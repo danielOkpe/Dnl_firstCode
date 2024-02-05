@@ -14,19 +14,13 @@ private defaultWidth : number = 170;
     console.log(this.el.nativeElement);
     this.el.nativeElement.style.cursor = 'pointer';
 
-    /*if( this.el.nativeElement ===  HTMLElement){
-      this.el.nativeElement.style.cursor = 'pointer';
-    }else{
-      this.el.nativeElement.style.cursor = 'default';
-    
-    }*/  }
+     }
 
   @HostListener('mouseenter') onMouseEnter(){
 this.setHeight(this.defaultHeight+10);
 this.setWidth(this.defaultWidth+10);
-/*
 
-*/
+
   }
 
   @HostListener('mouseleave') onMouseLeave(){

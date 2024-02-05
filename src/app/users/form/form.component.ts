@@ -3,7 +3,7 @@ import { User } from '../../user';
 import { Router } from '@angular/router';
 import { CommunicationService } from 'src/app/communication.service';
 import { UserService } from 'src/app/user.service';
-import { FormControl, FormControlName, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { users } from 'src/app/user-list';
 
 @Component({

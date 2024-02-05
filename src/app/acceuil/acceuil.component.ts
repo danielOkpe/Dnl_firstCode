@@ -13,7 +13,6 @@ import { users } from '../user-list';
 export class AcceuilComponent implements OnInit {
   click: boolean;
   userS: User[] = users;
-  //i: number;
 
   constructor(
     private route: Router,
@@ -25,7 +24,6 @@ export class AcceuilComponent implements OnInit {
     console.log(this.userService.user);
     this.addUser();
     console.log(users);
-    console.log( new Date(10000000));
   }
 
   addUser() {
